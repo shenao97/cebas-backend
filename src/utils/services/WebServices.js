@@ -42,6 +42,7 @@ const DELETEData = async (endpoint, params = {}, customHeaders) => {
   }
 }
 
+
 module.exports = {
   POSTData,
   PUTData,

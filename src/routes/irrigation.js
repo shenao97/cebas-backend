@@ -32,8 +32,7 @@ router.post('/', async (req, res) => {
             return res.status(404).json({ status: 404, message: "Config not found" });
         }
         const newIrrigation = new Irrigation({
-            ...irrigation,
-            config: configId
+            ...irrigation
         });
         await newIrrigation.save();
         const params = {
@@ -70,7 +69,7 @@ router.post('/', async (req, res) => {
             alerta: false,
             percent: 100
         }
-        await POSTData(`/controller/${process.env.CONTROLLER_ID}/device/${process.env.DEVICE_ID}/program`, params, { 'x-access-token': token })
+        //await POSTData(`/controller/${process.env.CONTROLLER_ID}/device/${process.env.DEVICE_ID}/program`, params, { 'x-access-token': token })
         res.status(201).json({ status: 201, data: newIrrigation });
     } catch (error) {
         console.error(error);
@@ -129,7 +128,7 @@ router.put('/:id', async (req, res) => {
             alerta: false,
             percent: 100
         }
-        await PUTData(`/controller/${process.env.CONTROLLER_ID}/device/${process.env.DEVICE_ID}/program/:idProgram`, params, { 'x-access-token': token })
+        //await PUTData(`/controller/${process.env.CONTROLLER_ID}/device/${process.env.DEVICE_ID}/program/:idProgram`, params, { 'x-access-token': token })
 
         res.status(200).json({ status: 200, data: updatedIrrigation });
     } catch (error) {
@@ -143,8 +142,19 @@ router.delete('/:id', async (req, res) => {
         const deletedIrrigation = await Irrigation.findByIdAndDelete(id)
         if (!deletedIrrigation) return res.status(404).json({ status: 404, message: "There's not a irrigation available" });
         
-        await DELETEData(`/controller/${process.env.CONTROLLER_ID}/device/${process.env.DEVICE_ID}/program/:idProgram`, params, { 'x-access-token': token })
+        //await DELETEData(`/controller/${process.env.CONTROLLER_ID}/device/${process.env.DEVICE_ID}/program/:idProgram`, params, { 'x-access-token': token })
         res.status(201).json({ status: 200, data: deletedIrrigation });
+    } catch (error) {
+        res.status(400).json({ status: 400, message: "Irrigation cannot be deleted." });
+    }
+});
+
+router.delete('/', async (req, res) => {
+    try {
+        const deletedIrrigation = await Irrigation.collection('inventory').deleteMany({});
+        //const parcelConfig = await ParcelConfig.collection('inventory').deleteMany({});
+        //await DELETEData(`/controller/${process.env.CONTROLLER_ID}/device/${process.env.DEVICE_ID}/program/:idProgram`, params, { 'x-access-token': token })
+        res.status(201).json({ status: 200, data: {deletedIrrigation, parcelConfig} });
     } catch (error) {
         res.status(400).json({ status: 400, message: "Irrigation cannot be deleted." });
     }

@@ -3,13 +3,26 @@ const Schema = mongoose.Schema;
 
 const IrrigationSchema = new Schema({
     parcelName: String,
-    config: {
-        type: Schema.Types.ObjectId,
-        ref: 'ParcelConfig'
+    config:{
+        rootsL: Number,
+        drainL: Number,
+        aRootsTimelapse: Number,
+        aDrainTimelapse: Number,
+        percentageIncrement: Number,
+        rootsLThreshold: Number,
+        drainLThreshold: Number,
+        baseIrrigation: Number,
+        minIrrigationTimeMin: Number,
+        maxIrrigationTimeMin: Number,
+        startTime1: String,
+        startTime2: String,
+        startTime3: String,
+        initialDate: String
     },
     startTime: String,
     endTime: String,
-    isPending: Boolean
+    isPending: Boolean,
+    id:Number
 });
 
 module.exports = mongoose.model('Irrigation', IrrigationSchema);

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const { specs, swaggerUi } = require("./docs/Swagger");
 const { connectDb } = require('./db/Db');
 require('dotenv').config();
@@ -13,6 +14,8 @@ const port = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 app.use(express.static('public'));
+app.use(cors()); 
+
 
 connectDb();
 
