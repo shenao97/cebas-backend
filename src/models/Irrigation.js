@@ -22,7 +22,8 @@ const IrrigationSchema = new Schema({
     startTime: String,
     endTime: String,
     isPending: Boolean,
-    id:Number
+    configId:String,
+    precimedId: String
 });
 
 module.exports = mongoose.model('Irrigation', IrrigationSchema);
