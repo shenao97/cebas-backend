@@ -119,7 +119,7 @@ router.put('/:id', async (req, res) => {
             "advanced": false,
             "calrep": generateCalrep(data.irrigation.startTime),
             "calrepToSend": null,
-            "description": "prueba put sector2",
+            "description": "DSS Sector 2 Modificado",
             "device": "5f1abe29f7d565578dd3e009",
             "enarep": 1,
             "end": null,
